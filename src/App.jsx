@@ -1,28 +1,43 @@
-import { useState } from 'react'
+import { useEffect } from 'react';
+import Navbar from './components/Navbar.jsx';
+import Hero from './components/Hero.jsx';
+import Projects from './components/Projects.jsx';
+import Contact from './components/Contact.jsx';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Enable smooth scrolling for in-page anchors
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.style.scrollBehavior = 'smooth';
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        document.documentElement.style.scrollBehavior = '';
+      }
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
+    <div className="min-h-screen bg-neutral-950 text-neutral-100">
+      <Navbar />
+      <main>
+        <section id="home" className="relative overflow-hidden">
+          <Hero />
+        </section>
+        <section id="projects" className="relative">
+          <Projects />
+        </section>
+        <section id="contact" className="relative">
+          <Contact />
+        </section>
+      </main>
+      <footer className="py-8 text-center text-neutral-400 border-t border-neutral-800">
+        <p>
+          © {new Date().getFullYear()} Your Name. Built with React & Tailwind.
         </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
+      </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
